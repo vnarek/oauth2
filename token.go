@@ -157,9 +157,9 @@ func retrieveToken(ctx context.Context, c *Config, v url.Values) (*Token, error)
 	tk, err := internal.RetrieveToken(ctx, c.ClientID, c.ClientSecret, c.Endpoint.TokenURL, v, internal.AuthStyle(c.Endpoint.AuthStyle))
 	if err != nil {
 		if rErr, ok := err.(*internal.RetrieveError); ok {
-			return nil, (*RetrieveError)(rErr)
+			return tokenFromInternal(tk), (*RetrieveError)(rErr)
 		}
-		return nil, err
+		return tokenFromInternal(tk), err
 	}
 	return tokenFromInternal(tk), nil
 }

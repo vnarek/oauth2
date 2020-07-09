@@ -279,7 +279,7 @@ func doTokenRoundTrip(ctx context.Context, req *http.Request) (*Token, error) {
 		json.Unmarshal(body, &token.Raw) // no error checks for optional fields
 	}
 	if token.AccessToken == "" {
-		return nil, errors.New("oauth2: server response missing access_token")
+		return token, errors.New("oauth2: server response missing access_token")
 	}
 	return token, nil
 }
